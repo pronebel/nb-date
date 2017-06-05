@@ -4,8 +4,8 @@
 
 import expect from 'expect.js';
 
-import { DateRange,DateRangeCreate } from '../fat/date-range';
-import * as fake  from '../fat/fake'
+import { DateRange,DateRangeCreate } from '../src/date-range';
+import * as fake  from '../src/fake'
 
 
 describe('#add()', function() {
