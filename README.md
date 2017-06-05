@@ -57,7 +57,7 @@ npm install --save nb-date
 
 ``` js
 
-import { DateRange,DateRangeCreate } from 'moment-range';
+import { DateRange,DateRangeCreate } from 'date-range';
 
 ```
 
@@ -69,7 +69,7 @@ import { DateRange,DateRangeCreate } from 'moment-range';
 ```
 
 ``` js
-var DateRangeCreate = window.DateRangeCreate
+var DateRangeCreate = window.DateRangeCreate;
 ```
 
 
@@ -91,36 +91,31 @@ const range = DateRangeCreate(start, end);
 Arrays work too:
 
 ``` js
-const dates = [moment('2011-04-15', 'YYYY-MM-DD'), moment('2011-11-27', 'YYYY-MM-DD')];
-const range = moment.range(dates);
+const start = new Date(2012, 0, 15);
+const end   = new Date(2012, 4, 23);
+const dates = [start, end];
+const range = DateRangeCreate(dates);
 ```
 
 You can also create a range from an [ISO 8601 time interval][interval] string:
 
 ``` js
 const timeInterval = '2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00';
-const range = moment.range(timeInterval);
+const range = DateRangeCreate(timeInterval);
 ```
 
-You can also create a range from the start until the end of a named interval:
-
-``` js
-const date = moment('2011-04-15', 'YYYY-MM-DD');
-const range = date.range('month');
-```
 
 You can also create open-ended ranges which go to the earliest or latest possible date:
 
 ``` js
-const rangeUntil = moment.range(null, '2011-05-05');
-const rangeFrom = moment.range('2011-03-05', null);
-const rangeAllTime = moment.range(null, null);
+const rangeUntil = DateRangeCreate(null, '2011-05-05');
+const rangeFrom = DateRangeCreate('2011-03-05', null);
+const rangeAllTime = DateRangeCreate(null, null);
 ```
 
-*Note:* Dates and moment objects both use a timestamp of 00:00:000 if none is
+*Note:* Dates use a timestamp of 00:00:000 if none is
 provided. To ensure your range includes any timestamp for the given end date,
-use `.setHours(23,59,59,999)` when constructing a Date object, or
-`.endOf('day')` when constructing a moment object.
+use `.setHours(23,59,59,999)` when constructing a Date object
 
 ### Attributes
 
@@ -129,10 +124,10 @@ You can access the start and end moments of the range easily enough:
 ``` js
 const start = new Date(2012, 0, 15);
 const end   = new Date(2012, 4, 23);
-const range = moment.range(start, end);
+const range = DateRangeCreate(start, end);
 
-range.start  // moment
-range.end  // moment
+range.start  // date
+range.end  // date
 ```
 
 ### Querying
@@ -142,13 +137,13 @@ range.end  // moment
 Check if two ranges are touching but not overlapping:
 
 ``` js
-const a = moment('2016-03-15');
-const b = moment('2016-03-29');
-const c = moment('2016-03-10');
-const d = moment('2016-03-15');
+const a = new Date('2016-03-15');
+const b = new Date('2016-03-29');
+const c = new Date('2016-03-10');
+const d = new Date('2016-03-15');
 
-const range1 = moment.range(a, b);
-const range2 = moment.range(c, d);
+const range1 = DateRangeCreate(a, b);
+const range2 = DateRangeCreate(c, d);
 
 range1.adjacent(range2) // true
 ```
@@ -160,7 +155,7 @@ Calculate the center of a range:
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 3, 5);
-const dr    = moment.range(start, end);
+const dr    = DateRangeCreate(start, end);
 
 dr.center(); // 1300622400000
 ```
@@ -175,8 +170,8 @@ const start  = new Date(2012, 4, 1);
 const end    = new Date(2012, 4, 23);
 const lol    = new Date(2012, 4, 15);
 const wat    = new Date(2012, 4, 27);
-const range  = moment.range(start, end);
-const range2 = moment.range(lol, wat);
+const range  = DateRangeCreate(start, end);
+const range2 = DateRangeCreate(lol, wat);
 
 range.contains(lol); // true
 range.contains(wat); // false
@@ -191,18 +186,6 @@ range.contains(end, { exclusive: false }) // true
 range.contains(end, { exclusive: true }) // false
 ```
 
-#### Within
-
-Find out if your moment falls within a date range:
-
-``` js
-const start = new Date(2012, 4, 1);
-const end   = new Date(2012, 4, 23);
-const when  = moment('2012-05-10', 'YYYY-MM-DD');
-const range = moment.range(start, end);
-
-when.within(range); // true
-```
 
 #### Overlaps
 
@@ -215,13 +198,13 @@ range.overlaps(range2); // true
 Include adjacent ranges:
 
 ``` js
-const a = moment('2016-03-15');
-const b = moment('2016-03-20');
-const c = moment('2016-03-20');
-const d = moment('2016-03-25');
+const a = new Date('2016-03-15');
+const b = new Date('2016-03-20');
+const c = new Date('2016-03-20');
+const d = new Date('2016-03-25');
 
-const range1 = moment.range(a, b);
-const range2 = moment.range(c, d);
+const range1 = DateRangeCreate(a, b);
+const range2 = DateRangeCreate(c, d);
 
 range1.overlaps(range2)                      // false
 range1.overlaps(range2, { adjacent: false }) // false
@@ -233,7 +216,7 @@ range1.overlaps(range2, { adjacent: true })  // true
 What are the intersecting ranges?
 
 ``` js
-range.intersect(range2); // [moment.range(lol, end)]
+range.intersect(range2); // [DateRangeCreate(lol, end)]
 ```
 
 ### Manipulation
@@ -243,9 +226,9 @@ range.intersect(range2); // [moment.range(lol, end)]
 Add/combine/merge overlapping ranges.
 
 ``` js
-range.add(range2); // [moment.range(start, wat)]
+range.add(range2); // [DateRangeCreate(start, wat)]
 
-const range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
+const range3 = DateRangeCreate(new Date(2012, 3, 1), new Date(2012, 3, 15);
 range.add(range3); // [null]
 ```
 
@@ -256,7 +239,7 @@ Deep clone a range
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 3, 5);
-const dr    = moment.range(start, end);
+const dr    = DateRangeCreate(start, end);
 
 const dr2 = dr.clone();
 dr2.start.add(2, 'days');
@@ -269,7 +252,7 @@ dr2.start.toDate() === dr.start.toDate() // false
 Subtracting one range from another.
 
 ``` js
-range.subtract(range2); // [moment.range(start, lol)]
+range.subtract(range2); // [DateRangeCreate(start, lol)]
 ```
 
 ### Iteration
@@ -542,13 +525,19 @@ range.valueOf(); // 7945200000
 ## format,parse
 If you need date format or parse,please use [fecha] instead of moment
 
+
+### parse string to Date
+[Date String Parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse)
+ 
+
+
 ## Date Math
 
 If you need Date Math ,please use [date-arithmetic] instead of moment
 
 ###best practice
-
-DateRange with Unit:"milliseconds", "seconds", "minutes", "hours", "day", "weekday", "month", "year", "decade", "century"
+You can create a range from the start until the end of a named interval:
+"milliseconds", "seconds", "minutes", "hours", "day", "weekday", "month", "year", "decade", "century"
 ``` js
 
 // example in /tests/DateMath
@@ -557,6 +546,7 @@ import  dateMath  from 'date-arithmetic';
 const date = new Date(2011, 2, 5);
 let range1 = DateRangeCreate(dateMath.startOf(date, 'day'),dateMath.endOf(date, 'day'))
 ```
+
 
 
 
@@ -601,3 +591,6 @@ nb-date is [UNLICENSED][unlicense].
 [unlicense]: http://unlicense.org/
 [fecha]: https://github.com/taylorhakes/fecha
 [date-arithmetic]: https://github.com/jquense/date-math
+[date.parse]: http://www.cnblogs.com/yingcaiyi/p/4884903.html
+[date.parse2]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
+[date.parse.cn]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
