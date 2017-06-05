@@ -256,178 +256,15 @@ range.subtract(range2); // [DateRangeCreate(start, lol)]
 ```
 
 ### Iteration
-
-Each of the iteration methods return an [Iterable][iterable], providing
-a convenient and performant interface to iterating over your ranges by a given
-period.
-
-#### by
-
-Iterate over your range by a given period. Any of the units accepted by
-[moment.js' `add` method][add] may be used. E.g.: `'years' | 'quarters'
-| 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds'
-| 'milliseconds'`
-
-``` js
-const range = moment.range('2010-01-01', '2015-01-01');
-
-for (let month of range.by('month')) {
-  month.format('YYYY-MM-DD');
-}
-
-const years = Array.from(range.by('year'));
-years.length == 5 // true
-years.map(m => m.format('YYYY')) // ['2010', '2011', '2012', '2013', '2014', '2015']
-```
-
-Iteration also supports excluding the end value of the range by setting the
-`exclusive` option to `true`.
-
-``` js
-const start  = new Date(2012, 2, 1);
-const end    = new Date(2012, 2, 5);
-const range1 = moment.range(start, end);
-
-const acc = Array.from(range1.by('day', { exclusive: true }));
-
-acc.length == 4 // true
-```
-
-Additionally it's possible to iterate by a given step that defaults to `1`:
-
-``` js
-const start  = new Date(2012, 2, 2);
-const end    = new Date(2012, 2, 6);
-const range1 = moment.range(start, end);
-
-let acc = Array.from(range1.by('day', { step: 2 }));
-
-acc.map(m => m.format('DD')) // ['02', '04', '06']
-
-acc = Array.from(range1.by('day', { exclusive: true, step: 2 }));
-
-acc.map(m => m.format('DD')) // ['02', '04']
-```
-
-#### byRange
-
-``` js
-const start = new Date(2012, 2, 1);
-const two   = new Date(2012, 2, 2);
-const end   = new Date(2012, 2, 5);
-const range1 = moment.range(start, end);
-const range2 = moment.range(start, two); // One day
-```
-
-Iterate by another range:
-
-``` js
-const acc = Array.from(range1.by(range2));
-
-acc.length == 5 // true
-```
-
-Exclude the end value:
-
-``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
-
-acc.length == 4 // true
-```
-
-By step:
-
-``` js
-let acc = Array.from(range1.by(range2, { step: 2 }));
-
-acc.map(m => m.format('DD')) // ['01', '03', '05']
-
-acc = Array.from(range1.by(range2, { exlusive, true, step: 2 }));
-
-acc.map(m => m.format('DD')) // ['01', '03']
-```
-
-#### reverseBy
-
-Iterate over a range in reverse:
-
-``` js
-const range = moment.range('2012-01-01', '2015-01-01');
-const acc = Array.from(range.reverseBy('years'));
-acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013', '2012']
-```
-
-Exclude the end value:
-
-``` js
-const range = moment.range('2012-01-01', '2015-01-01');
-const acc = Array.from(range.reverseBy('years', { exclusive: true }));
-acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013']
-```
-
-By step:
-
-``` js
-const start  = new Date(2012, 2, 2);
-const end    = new Date(2012, 2, 6);
-const range1 = moment.range(start, end);
-
-let acc = Array.from(range1.reverseBy('day', { step: 2 }));
-
-acc.map(m => m.format('DD')) // ['06', '04', '02']
-
-acc = Array.from(range1.reverseBy('day', { exclusive: true, step: 2 }));
-
-acc.map(m => m.format('DD')) // ['06', '04']
-```
-
-#### reverseByRange
-
-``` js
-const start = new Date(2012, 2, 1);
-const two   = new Date(2012, 2, 2);
-const end   = new Date(2012, 2, 5);
-const range1 = moment.range(start, end);
-const range2 = moment.range(start, two); // One day
-```
-
-Iterate by another range in reverse:
-
-``` js
-const acc = Array.from(range1.by(range2));
-
-acc.length == 5 // true
-acc.map(m => m.format('DD')) // ['05', '04', '03', '02', '01']
-```
-
-Exclude the end value:
-
-``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
-
-acc.length == 4 // true
-acc.map(m => m.format('DD')) // ['05', '04', '03', '02']
-```
-
-By step:
-
-``` js
-let acc = Array.from(range1.reverseByRange(range2, { step: 2 }));
-
-acc.map(m => m.format('DD')) // ['05', '03', '01']
-
-acc = Array.from(range1.reverseByRange(range2, { exlusive, true, step: 2 }));
-
-acc.map(m => m.format('DD')) // ['05', '03']
-```
+to see: date-range-help
 
 ### Compare
 
 Compare range lengths or add them together with simple math:
 
 ``` js
-const range1 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-const range2 = moment.range(new Date(1995, 0, 1), new Date(1995, 12, 25));
+const range1 = DateRangeCreate(new Date(2011, 2, 5), new Date(2011, 3, 15));
+const range2 = DateRangeCreate(new Date(1995, 0, 1), new Date(1995, 12, 25));
 
 range2 > range1 // true
 
@@ -441,9 +278,9 @@ Math.abs(range1 - range2); // difference of ranges in milliseconds
 Check if two ranges are the same, i.e. their starts and ends are the same:
 
 ``` js
-const range1 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-const range2 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-const range3 = moment.range(new Date(2011, 3, 5), new Date(2011, 6, 15));
+const range1 = DateRangeCreate(new Date(2011, 2, 5), new Date(2011, 3, 15));
+const range2 = DateRangeCreate(new Date(2011, 2, 5), new Date(2011, 3, 15));
+const range3 = DateRangeCreate(new Date(2011, 3, 5), new Date(2011, 6, 15));
 
 range1.isSame(range2); // true
 range2.isSame(range3); // false
@@ -454,31 +291,28 @@ range2.isEqual(range3); // false
 
 #### Difference
 
-The difference of the entire range given various units.
+The difference of the entire range 
 
-Any of the units accepted by [moment.js' `add` method][add] may be used.
 
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const dr    = DateRangeCreate(start, end);
 
-dr.diff('months'); // 3
-dr.diff('days');   // 92
 dr.diff();         // 7945200000
 ```
 
-Optionally you may specify if the difference should be rounded, by default it
-mimics moment-js' behaviour and rounds the values:
+Optionally you may specify if the difference should be rounded and with unit, please use the lib `diff`
 
 ``` js
+import {dateRangeDuration} from './diff'
 const d1 = new Date(Date.UTC(2011, 4, 1));
 const d2 = new Date(Date.UTC(2011, 4, 5, 12));
-const range = moment.range(d1, d2);
+const range = DateRangeCreate(d1, d2);
 
-dr.diff('days')        // 4
-dr.diff('days', false) // 4
-dr.diff('days', true)  // 4.5
+dateRangeDuration(range,'days')     // 4
+dateRangeDuration(range,'days', false)// 4
+dateRangeDuration(range,'days', true)  // 4.5
 ```
 
 `#duration` is an alias for `#diff` and they may be used interchangeably.
@@ -492,7 +326,7 @@ Converts the `DateRange` to an `Array` of the start and end `Date` objects.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const dr    = DateRangeCreate(start, end);
 
 dr.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
 ```
@@ -505,7 +339,7 @@ interval][interval]:
 ``` js
 const start = '2015-01-17T09:50:04+00:00';
 const end   = '2015-04-17T08:29:55+00:00';
-const range = moment.range(moment.utc(start), moment.utc(end));
+const range = DateRangeCreate(new Date(start), new Date(end));
 
 range.toString() // '2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00'
 ```
@@ -517,7 +351,7 @@ The difference between the end date and start date in milliseconds.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const range = moment.range(start, end);
+const range = DateRangeCreate(start, end);
 
 range.valueOf(); // 7945200000
 ```

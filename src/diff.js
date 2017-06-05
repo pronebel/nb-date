@@ -54,4 +54,7 @@ export function dateDuration (date1,date2,units,asFloat){
     return asFloat ? output : absFloor(output);
 
 }
+export function dateRangeDuration(range,units,asFloat){
+    return dateDuration(range.start,range.end,units,asFloat);
+}
 
