@@ -1,106 +1,20 @@
-/**
- * @flow
- */
-
 import expect from 'expect.js';
 
-import { DateRange,DateRangeCreate } from '../../src/date-range';
-import * as fake  from '../../src/fake'
+import {DateRange, DateRangeCreate} from '../../src/date-range';
+
+import  dateMath  from 'date-arithmetic';
+import  fecha  from 'fecha';
 
 
-describe('#add()', function() {
-    const d5 = new Date(Date.UTC(2011, 2, 2));
-    const d6 = new Date(Date.UTC(2011, 4, 4));
-    const d7 = new Date(Date.UTC(2011, 6, 6));
-    const d8 = new Date(Date.UTC(2011, 8, 8));
+describe('#date Math', function () {
 
-    it('should add ranges with [---{==]---} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d7);
-        const dr2 = DateRangeCreate(d6, d8);
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d8))).to.be(true);
-    });
+    it('should range create with startOf,endOf', function () {
 
-    it('should add ranges with {---[==}---] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d6, d8);
-        const dr2 = DateRangeCreate(d5, d7);
+        const date = new Date(2011, 2, 5);
+        let range1 = DateRangeCreate(dateMath.startOf(date, 'day'), dateMath.endOf(date, 'day'))
 
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d8))).to.be(true);
-    });
-
-    it('should add ranges with [{===]---} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d6);
-        const dr2 = DateRangeCreate(d5, d7);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d7))).to.be(true);
-    });
-
-    it('should add ranges with {[===}---] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d7);
-        const dr2 = DateRangeCreate(d5, d6);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d7))).to.be(true);
-    });
-
-    it('should add ranges with [---{===]} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d7);
-        const dr2 = DateRangeCreate(d6, d7);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d7))).to.be(true);
-    });
-
-    it('should add ranges with {---[===}] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d6, d7);
-        const dr2 = DateRangeCreate(d5, d7);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d7))).to.be(true);
-    });
-
-    it('should not add ranges with [---] {---} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d6);
-        const dr2 = DateRangeCreate(d7, d8);
-
-        expect(dr1.add(dr2)).to.be(null);
-    });
-
-    it('should not add ranges with {---} [---] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d7, d8);
-        const dr2 = DateRangeCreate(d5, d6);
-
-        expect(dr1.add(dr2)).to.be(null);
-    });
-
-    it('should not add ranges with [---]{---} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d6);
-        const dr2 = DateRangeCreate(d6, d7);
-
-        expect(dr1.add(dr2)).to.be(null);
-    });
-
-    it('should not add ranges with {---}[---] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d6, d7);
-        const dr2 = DateRangeCreate(d5, d6);
-
-        expect(dr1.add(dr2)).to.be(null);
-    });
-
-    it('should add ranges {--[===]--} overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d6, d7);
-        const dr2 = DateRangeCreate(d5, d8);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d8))).to.be(true);
-    });
-
-    it('should add ranges [--{===}--] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d8);
-        const dr2 = DateRangeCreate(d6, d7);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d8))).to.be(true);
-    });
-
-    it('should add ranges [{===}] overlaps where (a=[], b={})', function() {
-        const dr1 = DateRangeCreate(d5, d6);
-        const dr2 = DateRangeCreate(d5, d6);
-
-        expect(fake.isSame(dr1.add(dr2),DateRangeCreate(d5, d6))).to.be(true);
+        let startExpect = fecha.format(range1.start, 'YYYY-MM-DD HH:mm:ss') === '2011-03-05 00:00:00'
+        let endExpect = fecha.format(range1.end, 'YYYY-MM-DD HH:mm:ss') === '2011-03-05 23:59:59'
+        expect(startExpect && endExpect).to.be(true);
     });
 });

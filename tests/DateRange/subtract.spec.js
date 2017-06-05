@@ -4,8 +4,8 @@
 
 import expect from 'expect.js';
 
-import { DateRange,DateRangeCreate } from '../src/date-range';
-import * as fake  from '../src/fake'
+import { DateRange,DateRangeCreate } from '../../src/date-range';
+import * as fake  from '../../src/fake'
 
 describe('#subtract()', function() {
   const d5 = new Date(Date.UTC(2011, 2, 2));
