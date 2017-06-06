@@ -1,16 +1,16 @@
 {
-  "name": "moment-fat",
+  "name": "nb-date",
   "version": "0.0.1",
-  "description": "moment fat lib",
+  "description": "lib",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "test": "karma start ./karma.conf.js",
-    "doctoc": "doctoc README.md --github"
+    "doctoc": "doctoc document.md --github"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pronebel/moment-fat.git"
+    "url": "git+https://github.com/pronebel/nb-date.git"
   },
   "keywords": [
     "moment",
@@ -21,9 +21,9 @@
   "author": "nebel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pronebel/moment-fat/issues"
+    "url": "https://github.com/pronebel/nb-date/issues"
   },
-  "homepage": "https://github.com/pronebel/moment-fat#readme",
+  "homepage": "https://github.com/pronebel/nb-date#readme",
   "dependencies": {
     "date-arithmetic": "^3.1.0",
     "date-diff": "^0.1.3",
