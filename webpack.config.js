@@ -3,7 +3,10 @@ const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: ['./src/index.js'],
+  entry: {
+      'DateRange': ['./src/date-range.js'],
+      'DateDiff': ['./src/date-diff.js'],
+  },
   externals: {
 
   },
@@ -39,8 +42,9 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'date-range.js',
-    library: 'date-range',
+
+    filename: "[name].min.js",
+    library: '[name]',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, './dist'),
     umdNamedDefine: true
