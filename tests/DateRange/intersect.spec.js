@@ -5,7 +5,7 @@
 import expect from 'expect.js';
 
 import { DateRange,DateRangeCreate } from '../../src/date-range';
-import * as fake  from '../../src/fake'
+import * as fake  from '../libs/fake'
 
 describe('#intersect()', function() {
   const d5 = new Date(Date.UTC(2011, 2, 2));

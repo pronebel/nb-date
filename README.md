@@ -1,9 +1,26 @@
+#NB-Date for date ranges
+
+nb-date is base from the moment-range. Because the size of the Moment is too big.
+If you have more and more complex date process, please use the Moment;
+Otherwise, you can use the microJs.
+
+
+
+
+
+``` js
+ npm install --save nb-date
+```
+
 
 
 
 
 ## [fecha] 4.9KBs 
-If you need `Format` or `Parse`,please use [fecha] instead of moment
+If you need `Format` or `Parse`, please use [fecha] instead of moment
+``` js
+ npm install --save fecha
+```
 
 <table class="table table-striped table-bordered">
   <tbody>
@@ -46,8 +63,9 @@ Date Manipulation, you can use [date-arithmetic]
 ## [date-arithmetic] 5.7KBS
 
 If you need Manipulation,please use [date-arithmetic] instead of moment, here is the [API][date-arithmetic]
-
-
+``` js
+    npm install --save date-arithmetic
+```
 
 ## Running Tests
 

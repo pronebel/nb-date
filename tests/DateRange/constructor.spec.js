@@ -5,7 +5,7 @@
 import expect from 'expect.js';
 
 import { DateRange,DateRangeCreate } from '../../src/date-range';
-import * as fake  from '../../src/fake'
+import * as fake  from '../libs/fake'
 
 function isDate(date){
     return date instanceof Date

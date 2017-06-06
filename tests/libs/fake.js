@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {DateDiff} from './diff'
+import {DateDiff} from '../../src/diff'
 
 
 

@@ -1,6 +1,6 @@
 import Symbol from 'es6-symbol';
 
-import * as fake  from './fake'
+import * as fake  from '../tests/libs/fake'
 
 export function by(rangeDate,interval, options = {exclusive: false, step: 1}) {// change
     const range = rangeDate;

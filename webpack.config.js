@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: ['./src/date-range.js'],
+  entry: ['./src/index.js'],
   externals: {
 
   },
@@ -46,6 +46,14 @@ module.exports = {
     umdNamedDefine: true
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            drop_debugger: true,
+            drop_console: true
+        },
+        sourceMap: true
+    })
   ]
 };
