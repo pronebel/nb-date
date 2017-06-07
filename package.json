@@ -1,5 +1,5 @@
 {
-  "name": "nb-date",
+  "name": "nb-date-range",
   "version": "0.0.4",
   "description": "lib",
   "main": "./dist/DateRange",
