@@ -12,55 +12,17 @@ Otherwise, you can use the microJs.
 
 the detail use, please see the [Docment](./document.md)
 
+## Other Date MicroJs
 
-
-## [fecha] 4.9KBs 
+### [fecha] 4.9KBs 
 If you need `Format` or `Parse`, please use [fecha] instead of moment
 ``` js
  npm install --save fecha
 ```
 
-<table class="table table-striped table-bordered">
-  <tbody>
-    <tr>
-      <th></th>
-      <th>Fecha</th>
-      <th>Moment</th>
-    </tr>
-    <tr>
-      <td><b>Size (Min)</b></td>
-      <td>4.9KBs</td>
-      <td>51.5KBs</td>
-    </tr>
-    <tr>
-      <td><b>Date Parsing</b></td>
-      <td>&#x2713;</td>
-      <td>&#x2713;</td>
-    </tr>
-    <tr>
-      <td><b>Date Formatting</b></td>
-      <td>&#x2713;</td>
-      <td>&#x2713;</td>
-    </tr>
-    <tr>
-      <td><b>Date Manipulation</b></td>
-      <td></td>
-      <td>&#x2713;</td>
-    </tr>
-    <tr>
-      <td><b>I18n Support</b></td>
-      <td>&#x2713;</td>
-      <td>&#x2713;</td>
-    </tr>
-  </tbody>
-</table>
+### [date-arithmetic] 5.7KBS
 
-Date Manipulation, you can use [date-arithmetic] 
-
-
-## [date-arithmetic] 5.7KBS
-
-If you need Manipulation,please use [date-arithmetic] instead of moment, here is the [API][date-arithmetic]
+If you need  Date Manipulation,please use [date-arithmetic] instead of moment, here is the [API][date-arithmetic]
 ``` js
     npm install --save date-arithmetic
 ```
@@ -70,7 +32,7 @@ If you need Manipulation,please use [date-arithmetic] instead of moment, here is
 Clone this bad boy:
 
 ``` sh
-git clone https://git@github.com/gf3/moment-range.git
+git clone https://git@github.com/pronebel/nb-date.git
 ```
 
 Install the dependencies:
@@ -90,7 +52,7 @@ npm run lint
 
 ## License
 
-nb-date is [UNLICENSED][unlicense].
+nb-date-range is [UNLICENSED][unlicense].
 
 
 [fecha]: https://github.com/taylorhakes/fecha
