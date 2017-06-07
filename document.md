@@ -114,7 +114,7 @@ use `.setHours(23,59,59,999)` when constructing a Date object
 
 ### Attributes
 
-You can access the start and end moments of the range easily enough:
+You can access the start and end date of the range easily enough:
 
 ``` js
 const start = new Date(2012, 0, 15);
@@ -158,7 +158,7 @@ dr.center(); // 1300622400000
 
 #### Contains
 
-Check to see if your range contains a date/moment:
+Check to see if your range contains a date:
 
 ``` js
 const start  = new Date(2012, 4, 1);

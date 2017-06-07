@@ -4,21 +4,13 @@ nb-date is base from the moment-range. Because the size of the Moment is too big
 If you have more and more complex date process, please use the Moment;
 Otherwise, you can use the microJs.
 
-
-
-
+    npm install --save nb-date
 
 ``` js
- npm install --save nb-date
- 
- 
  import {DateRange,DateRangeCreate} from 'nb-date/dist/DateRange'
- 
- 
- 
 ```
 
-## the detail use, please see the [docment](./document.md)
+the detail use, please see the [Docment](./document.md)
 
 
 
