@@ -10,9 +10,15 @@ Otherwise, you can use the microJs.
 
 ``` js
  npm install --save nb-date
+ 
+ 
+ import {DateRange,DateRangeCreate} from 'nb-date/dist/DateRange'
+ 
+ 
+ 
 ```
 
-
+## the detail use, please see the [docment](./document.md)
 
 
 
